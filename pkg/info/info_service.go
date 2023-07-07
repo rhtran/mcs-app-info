@@ -1,8 +1,8 @@
 package info
 
 import (
+	"github.com/ryyt-cg/mcs-app-info/config/app"
 	"go.uber.org/zap"
-	"mcs-app-info/config/app"
 )
 
 type Servicer interface {
