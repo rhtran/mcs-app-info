@@ -1,4 +1,4 @@
-module mcs-app-info
+module guthub.com/ryyt-cg/mcs-app-info
 
 go 1.20
 
