@@ -1,7 +1,6 @@
 package info
 
 import (
-	"github.com/ryyt-cg/mcs-app-info/config/app"
 	"go.uber.org/zap"
 )
 
@@ -12,20 +11,13 @@ type Servicer interface {
 type Service struct {
 	logger     *zap.Logger
 	commitHash string
+	info       Info
 }
 
-func NewInfoService(logger *zap.Logger, commitHash string) *Service {
-	return &Service{logger, commitHash}
+func NewInfoService(logger *zap.Logger, commitHash string, info Info) *Service {
+	return &Service{logger, commitHash, info}
 }
 
 func (service *Service) GetAppInfo() (*Info, error) {
-	// this block make GetAppInfo() not testable.
-	info := &Info{
-		AppName:     app.Config.AppInfo.Name,
-		Description: app.Config.AppInfo.Description,
-		GitCommit:   service.commitHash,
-		Version:     service.commitHash,
-	}
-
-	return info, nil
+	return &service.info, nil
 }
