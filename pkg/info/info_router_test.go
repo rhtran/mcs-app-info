@@ -1,15 +1,12 @@
 package info
 
 import (
-	"blog-service/internal/api/test"
-	"context"
 	"encoding/json"
+	"github.com/gin-gonic/gin"
+	"github.com/ryyt-cg/mcs-app-info/pkg/test"
+	"go.uber.org/zap"
 	"net/http"
 	"testing"
-
-	"github.com/gin-gonic/gin"
-
-	"github.com/qiangxue/go-restful-api/pkg/log"
 
 	"github.com/stretchr/testify/mock"
 )
@@ -34,10 +31,11 @@ func setupRouter() *gin.Engine {
 
 func TestInfoRouter(t *testing.T) {
 	infoMock := infoServiceMock{}
-	info := &Info{"Test App", "Info App", "1.0.0", "127.0.0.1", ""}
+	info := &Info{"Test App", "Info App", "1.0.0", "::1 127.0.0.1", ""}
 	infoMock.On("GetAppInfo").Return(*info, nil)
 
-	logger := log.New().With(context.TODO(), "version", "test")
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
 	r := setupRouter()
 	home := r.Group("/")
 

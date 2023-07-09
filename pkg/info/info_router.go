@@ -41,6 +41,7 @@ func (infoRouter *Router) appInfo(c *gin.Context) {
 	if err != nil {
 		result.Ip = "Unknown host"
 	} else {
+		result.Ip = ""
 		for _, ia := range addrs {
 			result.Ip += ia.String() + " "
 		}
