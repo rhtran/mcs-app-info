@@ -23,6 +23,7 @@ func NewInfoRouter(logger *zap.Logger, infoService Servicer) *Router {
 		infoService}
 }
 
+// InfoRegister
 // ShowInfo godoc
 // @Summary Show config info
 // @Tags Info
