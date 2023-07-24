@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/ryyt-cg/mcs-app-info/pkg/test"
-	"go.uber.org/zap"
 	"net/http"
 	"testing"
 
@@ -34,12 +33,10 @@ func TestInfoRouter(t *testing.T) {
 	info := &Info{"Test App", "Info App", "1.0.0", "::1 127.0.0.1", ""}
 	infoMock.On("GetAppInfo").Return(*info, nil)
 
-	logger, _ := zap.NewProduction()
-	defer logger.Sync()
 	r := setupRouter()
 	home := r.Group("/")
 
-	router := NewInfoRouter(logger, &infoMock)
+	router := NewInfoRouter(&infoMock)
 	router.InfoRegister(home.Group("/info"))
 
 	tc1, _ := json.Marshal(info)

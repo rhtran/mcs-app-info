@@ -1,26 +1,24 @@
 package health
 
 import (
-	"go.uber.org/zap"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-type CheckRouter struct {
+type Router struct {
 	checkService CheckServicer
-	logger       *zap.Logger
 }
 
-func NewCheckRouter(checkService CheckServicer, logger *zap.Logger) *CheckRouter {
-	return &CheckRouter{checkService, logger}
+func NewCheckRouter(checkService CheckServicer) *Router {
+	return &Router{checkService}
 }
 
-func (checkRouter *CheckRouter) CheckRegister(router *gin.RouterGroup) {
-	router.GET("", checkRouter.healthCheck)
+func (checkRouter *Router) CheckRegister(router *gin.RouterGroup) {
+	router.GET("/health", checkRouter.healthCheck)
 }
 
-func (checkRouter *CheckRouter) healthCheck(c *gin.Context) {
+func (checkRouter *Router) healthCheck(c *gin.Context) {
 	result, err := checkRouter.checkService.Check()
 
 	if err != nil {

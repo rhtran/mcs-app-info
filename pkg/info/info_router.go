@@ -1,7 +1,6 @@
 package info
 
 import (
-	"go.uber.org/zap"
 	"net"
 	"net/http"
 	"strings"
@@ -14,24 +13,22 @@ import (
 //}
 
 type Router struct {
-	logger      *zap.Logger
 	infoService Servicer
 }
 
-func NewInfoRouter(logger *zap.Logger, infoService Servicer) *Router {
-	return &Router{logger,
-		infoService}
+func NewInfoRouter(infoService Servicer) *Router {
+	return &Router{infoService}
 }
 
 // InfoRegister
 // ShowInfo godoc
 // @Summary Show config info
 // @Tags Info
-// @Produce  json
+// @Produce json
 // @Router /info [get]
 // @Success 200 {object} info.Info
 func (infoRouter *Router) InfoRegister(router *gin.RouterGroup) {
-	router.GET("", infoRouter.appInfo)
+	router.GET("/info", infoRouter.appInfo)
 }
 
 func (infoRouter *Router) appInfo(c *gin.Context) {
