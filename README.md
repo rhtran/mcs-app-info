@@ -6,7 +6,7 @@
 
 
 ## [go get private repos using SSH key auth instead of password auth](https://gist.github.com/StevenACoffman/866b06ed943394fbacb60a45db5982f2)
-1. add export GOPRIVATE=github.com/{{your usename}} 
+1. add export GOPRIVATE=github.com/{{your username}} 
 2. add export GITHUB_TOKEN=your-access-token-generated-from-github
 3. git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 4. cat .gitconfig
